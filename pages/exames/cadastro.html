@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Cadastro de Exames</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos específicos para a página de cadastro de exames */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field-group.full-width {
+      min-width: 100%;
+    }
+    
+    .form-field-group.half-width {
+      min-width: calc(50% - 8px);
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .tab-content {
+      padding: 20px 0;
+    }
+    
+    /* Estilos específicos para o cadastro de exames */
+    .exam-header {
+      background-color: #2196F3;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .exam-header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    
+    .exam-close-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    .exam-toolbar {
+      background-color: #f5f5f5;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .exam-toolbar button {
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .exam-toolbar button:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .exam-patient-nav {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+    
+    .exam-patient-nav label {
+      margin-right: 10px;
+      color: #2196F3;
+    }
+    
+    .exam-patient-nav input {
+      flex-grow: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .nav-button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    
+    .basic-data {
+      background-color: #f5f5f5;
+      padding: 15px;
+    }
+    
+    .basic-data-header {
+      background-color: #2196F3;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .form-group label {
+      width: 200px;
+      text-align: right;
+      margin-right: 10px;
+      color: #2196F3;
+    }
+    
+    .form-group input, .form-group select {
+      flex-grow: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    
+    .form-group .small-input {
+      width: 60px;
+      flex-grow: 0;
+    }
+    
+    .form-group .medium-input {
+      width: 120px;
+      flex-grow: 0;
+    }
+    
+    .form-group .date-input {
+      width: 100px;
+      flex-grow: 0;
+    }
+    
+    .left-sidebar {
+      width: 130px;
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-right: 1px solid #ccc;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 20px;
+    }
+    
+    .sidebar-section h3 {
+      font-size: 14px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .sidebar-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .sidebar-icon {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .status-label {
+      background-color: yellow;
+      display: inline-block;
+      padding: 2px 5px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    .main-content-wrapper {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <div class="app-container">
+    <!-- Container para o menu que será carregado dinamicamente -->
+    <div id="menu-container"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-content">
+
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+          <a href="../../index.html">Início</a>
+          <span>></span>
+          <a href="#">Exames</a>
+          <span>></span>
+          <span>Cadastro de Exames</span>
+        </div>
+        
+        <div class="exam-container">
+    <!-- Cabeçalho do exame -->
+    <div class="exam-header">
+      <h1>Exames - Cadastro</h1>
+      <button class="exam-close-btn">X</button>
+    </div>
+    
+    <!-- Container para a barra de ferramentas que será carregada dinamicamente -->
+    <div id="menu-exame-top-container"></div>
+    
+    <!-- Navegação de paciente -->
+    <div class="exam-patient-nav">
+      <label for="paciente">Funcionário/Paciente:</label>
+      <input type="text" id="paciente" value="PACIENTE TESTE" readonly>
+      <div class="nav-buttons">
+        <button class="nav-button">&lt;&lt;</button>
+        <button class="nav-button">&lt;</button>
+        <button class="nav-button">&gt;</button>
+        <button class="nav-button">&gt;&gt;</button>
+      </div>
+      <label for="data" style="margin-left: 20px;">Data:</label>
+      <input type="text" id="data" class="date-input" value="06/06/2023" readonly>
+    </div>
+    
+    <!-- Conteúdo principal -->
+    <div class="main-content-wrapper">
+      <!-- Container para o menu de exames que será carregado dinamicamente -->
+      <div id="menu-exame-container"></div>
+      
+      <!-- Dados básicos -->
+      <div class="main-content">
+        <div class="basic-data">
+          <div class="basic-data-header">
+            <h2>Dados Básicos</h2>
+          </div>
+          
+          <div class="form-group">
+            <label for="tipo-consulta">Tipo da consulta:</label>
+            <select id="tipo-consulta">
+              <option selected>Convênio</option>
+              <option>Particular</option>
+              <option>SUS</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="repouso-acustico">Repouso Acústico Informado:</label>
+            <select id="repouso-acustico" style="width: 150px;">
+              <option selected>maior ou igual a</option>
+              <option>menor que</option>
+            </select>
+            <input type="text" id="repouso-horas" class="small-input">
+            <span style="margin-left: 5px;">horas</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="idade-anos">Idade:</label>
+            <input type="text" id="idade-anos" class="small-input" value="45">
+            <span style="margin: 0 5px;">anos</span>
+            <input type="text" id="idade-meses" class="small-input" value="0">
+            <span style="margin-left: 5px;">meses</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="audiometro">Audiômetro:</label>
+            <input type="text" id="audiometro" value="INVENTIS 35127">
+            <label for="ultima-afericao" style="width: auto; margin-left: 10px;">Última aferição:</label>
+            <input type="text" id="ultima-afericao" class="date-input" value="01/08/2023">
+          </div>
+          
+          <div class="form-group">
+            <label for="imitanciometro">Imitanciômetro:</label>
+            <input type="text" id="imitanciometro" value="INVENTIS">
+          </div>
+          
+          <div class="form-group">
+            <label for="fonoaudiologo">Fonoaudiólogo(a):</label>
+            <input type="text" id="fonoaudiologo" value="(4-14000) Franklim Oliveira Souza">
+          </div>
+          
+          <div class="form-group">
+            <label for="medico">Médico(a):</label>
+            <input type="text" id="medico">
+          </div>
+          
+          <div class="form-group">
+            <label for="profissional-solicitante">Profissional que solicitou o exame:</label>
+            <input type="text" id="profissional-solicitante" value="Dr. Roosevelt">
+          </div>
+          
+          <div class="form-group">
+            <label for="convenio">Convênio:</label>
+            <input type="text" id="convenio" value="SUS">
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script src="https://unpkg.com/imask"></script>
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/menu-exame-loader.js"></script>
+  <script src="../../assets/js/menu-exame-top-loader.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar máscaras para campos de data
+      const dataElement = document.getElementById('data');
+      if (dataElement) {
+        const dataMask = IMask(dataElement, {
+          mask: '00/00/0000'
+        });
+      }
+      
+      const afericaoElement = document.getElementById('ultima-afericao');
+      if (afericaoElement) {
+        const afericaoMask = IMask(afericaoElement, {
+          mask: '00/00/0000'
+        });
+      }
+      
+      // Botão de fechar
+      const closeBtn = document.querySelector('.exam-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          // Redirecionar para a página anterior ou fechar o modal
+          window.history.back();
+        });
+      }
+      
+      // Note: Material components and menu events are now initialized by menu-loader.js
+    });
+  </script>
+</body>
+</html>

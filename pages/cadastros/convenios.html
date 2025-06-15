@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Cadastro de Convênios</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos específicos para a página de convênios */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .full-width {
+      width: 100%;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .company-selector {
+      margin-bottom: 24px;
+    }
+    
+    /* Estilos para breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+    }
+    
+    .breadcrumbs a {
+      color: #2196F3;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+    
+    .breadcrumbs span {
+      margin: 0 4px;
+      color: #757575;
+    }
+    
+    /* Estilos para cards de conteúdo */
+    .content-card {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background-color: var(--mdc-theme-primary, #1976d2);
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <!-- Container para o menu que será carregado dinamicamente -->
+  <div id="menu-container"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="mdc-drawer-app-content">
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->  
+        <div class="breadcrumbs">
+          <a href="../../index.html">Início</a>
+          <span>></span>
+          <span>Cadastros</span>
+          <span>></span>
+          <span>Convênios</span>
+        </div>
+        
+        <!-- Botões de navegação -->
+        <div class="navigation-buttons">
+          <button class="mdc-button mdc-button--raised" id="btn-primeiro">
+            <span class="mdc-button__ripple"></span>
+            <span class="material-icons">first_page</span>
+          </button>
+          <button class="mdc-button mdc-button--raised" id="btn-anterior">
+            <span class="mdc-button__ripple"></span>
+            <span class="material-icons">chevron_left</span>
+          </button>
+          <button class="mdc-button mdc-button--raised" id="btn-proximo">
+            <span class="mdc-button__ripple"></span>
+            <span class="material-icons">chevron_right</span>
+          </button>
+          <button class="mdc-button mdc-button--raised" id="btn-ultimo">
+            <span class="mdc-button__ripple"></span>
+            <span class="material-icons">last_page</span>
+          </button>
+        </div>
+        
+        <!-- Formulário de cadastro de convênios -->
+        <div class="content-card" id="convenios-form">
+          <div class="card-header">
+            <h2>Cadastro - Convênios</h2>
+            <button class="mdc-icon-button material-icons" style="color: white;" aria-label="Fechar">close</button>
+          </div>
+          
+          <form id="form-convenios" class="card-content">
+            <!-- Informações do Convênio -->
+            <section class="form-section">
+              <div class="form-row">
+                <div class="form-field-group">
+                  <div class="mdc-text-field mdc-text-field--outlined form-field">
+                    <input type="text" class="mdc-text-field__input" id="nome-reduzido" name="convenio-nome-reduzido">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="nome-reduzido" class="mdc-floating-label">Nome Reduzido:</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-field-group full-width">
+                  <div class="mdc-text-field mdc-text-field--outlined form-field">
+                    <input type="text" class="mdc-text-field__input" id="descricao" name="convenio-descricao">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="descricao" class="mdc-floating-label">Descrição:</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            <div class="form-actions">
+              <button type="button" class="mdc-button" id="btn-fechar">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">Fechar</span>
+              </button>
+              <button type="submit" class="mdc-button mdc-button--raised" id="btn-salvar">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">Salvar</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Snackbar para mensagens -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-live="polite"></div>
+      <div class="mdc-snackbar__actions">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/convenios.js"></script>
+</body>
+</html>

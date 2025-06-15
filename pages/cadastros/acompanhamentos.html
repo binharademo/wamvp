@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Cadastro de Acompanhamentos</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos específicos para a página de cadastro de acompanhamentos */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .full-width {
+      width: 100%;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    /* Estilos para breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+    }
+    
+    .breadcrumbs a {
+      color: #2196F3;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+    
+    .breadcrumbs span {
+      margin: 0 4px;
+      color: #757575;
+    }
+    
+    /* Estilos para cards de conteúdo */
+    .content-card {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      background-color: #2196F3;
+    }
+    
+    .card-header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: white;
+    }
+    
+    .card-content {
+      padding: 16px;
+    }
+    
+    /* Estilos para a barra de ações */
+    .action-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <!-- Container para o menu que será carregado dinamicamente -->
+  <div id="menu-container"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="mdc-drawer-app-content">
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->  
+        <div class="breadcrumbs">
+          <a href="../../index.html">Início</a>
+          <span>></span>
+          <a href="#">Cadastros</a>
+          <span>></span>
+          <span>Acompanhamentos</span>
+        </div>
+
+        <!-- Barra de ações -->
+        <div class="action-bar">
+          <button class="mdc-button mdc-button--raised" id="btn-novo-acompanhamento">
+            <i class="material-icons mdc-button__icon">add</i>
+            <span class="mdc-button__label">Novo Acompanhamento</span>
+          </button>
+        </div>
+        
+        <!-- Formulário de cadastro de acompanhamentos -->
+        <div class="content-card" id="acompanhamentos-form">
+          <div class="card-header">
+            <h2>Cadastro - Acompanhamentos</h2>
+            <button class="mdc-icon-button material-icons" style="color: white;" aria-label="Fechar">close</button>
+          </div>
+          
+          <form id="form-acompanhamentos" class="card-content">
+            <!-- Campos do formulário baseados na imagem -->
+            <div class="form-row">
+              <div class="form-field-group" style="max-width: 200px;">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="sigla" name="acomp-sigla">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="sigla" class="mdc-floating-label">Sigla:</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="descricao" name="acomp-descricao">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="descricao" class="mdc-floating-label">Descrição:</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Botões de navegação -->
+            <div class="navigation-buttons">
+              <button type="button" class="mdc-icon-button material-icons" aria-label="Primeiro">first_page</button>
+              <button type="button" class="mdc-icon-button material-icons" aria-label="Anterior">navigate_before</button>
+              <button type="button" class="mdc-icon-button material-icons" aria-label="Próximo">navigate_next</button>
+              <button type="button" class="mdc-icon-button material-icons" aria-label="Último">last_page</button>
+              
+              <!-- Botão de fechar à direita -->
+              <div style="margin-left: auto;">
+                <button type="button" class="mdc-button" id="btn-fechar">
+                  <span class="mdc-button__ripple"></span>
+                  <span class="mdc-button__label">Fechar</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Snackbar para mensagens -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false"></div>
+      <div class="mdc-snackbar__actions" aria-atomic="true">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Material Design Web Components -->
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Scripts personalizados -->
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/acompanhamentos.js"></script>
+</body>
+</html>

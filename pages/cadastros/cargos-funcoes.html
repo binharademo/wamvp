@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Cadastro de Cargos e Funções</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos específicos para a página de cargos e funções */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .full-width {
+      width: 100%;
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .company-selector {
+      margin-bottom: 24px;
+    }
+    
+    /* Estilos para breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+    }
+    
+    .breadcrumbs a {
+      color: #2196F3;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+    
+    .breadcrumbs span {
+      margin: 0 4px;
+      color: #757575;
+    }
+    
+    /* Estilos para cards de conteúdo */
+    .content-card {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      background-color: #2196F3;
+    }
+    
+    .card-header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: white;
+    }
+    
+    .card-content {
+      padding: 16px;
+    }
+    
+    /* Estilos para a barra de ações */
+    .action-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <!-- Container para o menu que será carregado dinamicamente -->
+  <div id="menu-container"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="mdc-drawer-app-content">
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->  
+        <div class="breadcrumbs">
+          <a href="../../index.html">Início</a>
+          <span>></span>
+          <a href="#">Cadastros</a>
+          <span>></span>
+          <span>Cargos e Funções</span>
+        </div>
+
+        <!-- Barra de ações -->
+        <div class="action-bar">
+          <button class="mdc-button mdc-button--raised" id="btn-novo-cargo">
+            <i class="material-icons mdc-button__icon">add</i>
+            <span class="mdc-button__label">Novo Cargo</span>
+          </button>
+        </div>
+        
+        <!-- Formulário de cadastro de cargos e funções -->
+        <div class="content-card" id="cargos-form">
+          <div class="card-header">
+            <h2>Cadastro de Cargos e Funções</h2>
+            <button class="mdc-icon-button material-icons" style="color: white;" aria-label="Fechar">close</button>
+          </div>
+          
+          <form id="form-cargos" class="card-content">
+            <!-- Seleção de Empresa -->
+            <div class="company-selector">
+              <div class="mdc-select mdc-select--outlined full-width">
+                <div class="mdc-select__anchor">
+                  <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                      <span class="mdc-floating-label">Empresa:</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                  </span>
+                  <span class="mdc-select__selected-text"></span>
+                  <span class="mdc-select__dropdown-icon">
+                    <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5">
+                      <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd" points="7 10 12 15 17 10"></polygon>
+                      <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd" points="7 15 12 10 17 15"></polygon>
+                    </svg>
+                  </span>
+                </div>
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul class="mdc-list">
+                    <li class="mdc-list-item mdc-list-item--selected" data-value="FRIGO SERRANO" aria-selected="true">
+                      <span class="mdc-list-item__text">FRIGO SERRANO</span>
+                    </li>
+                    <li class="mdc-list-item" data-value="EMPRESA 2">
+                      <span class="mdc-list-item__text">EMPRESA 2</span>
+                    </li>
+                    <li class="mdc-list-item" data-value="EMPRESA 3">
+                      <span class="mdc-list-item__text">EMPRESA 3</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <hr class="mdc-list-divider">
+            
+            <section class="form-section">
+              <h3 class="form-section-title">Informações do Cargo ou Função:</h3>
+              
+              <div class="form-row">
+                <div class="form-field-group">
+                  <div class="mdc-text-field mdc-text-field--outlined form-field">
+                    <input type="text" class="mdc-text-field__input" id="nome-cargo" name="cargo-nome">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="nome-cargo" class="mdc-floating-label">Nome:</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field-group">
+                  <div class="mdc-text-field mdc-text-field--outlined form-field">
+                    <input type="text" class="mdc-text-field__input" id="cbo" name="cargo-cbo">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="cbo" class="mdc-floating-label">CBO:</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Botões de navegação -->
+            <div class="navigation-buttons">
+              <button class="mdc-button mdc-button--outlined" type="button">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon">first_page</i>
+              </button>
+
+              <button class="mdc-button mdc-button--outlined" type="button">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon">chevron_left</i>
+              </button>
+
+              <button class="mdc-button mdc-button--outlined" type="button">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon">chevron_right</i>
+              </button>
+
+              <button class="mdc-button mdc-button--outlined" type="button">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon">last_page</i>
+              </button>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="mdc-button" id="btn-fechar">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">Fechar</span>
+              </button>
+              <button type="submit" class="mdc-button mdc-button--raised">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">Salvar</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Snackbar para mensagens -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false"></div>
+      <div class="mdc-snackbar__actions" aria-atomic="true">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Material Design Web Components -->
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Scripts personalizados -->
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/cargos-funcoes.js"></script>
+</body>
+</html>

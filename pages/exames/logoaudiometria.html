@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Logoaudiometria</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos comuns para todas as páginas de exame */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field-group.full-width {
+      min-width: 100%;
+    }
+    
+    .form-field-group.half-width {
+      min-width: calc(50% - 8px);
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .tab-content {
+      padding: 20px 0;
+    }
+    
+    /* Estilos específicos para páginas de exame */
+    .exam-header {
+      background-color: #2196F3;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .exam-header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    
+    .exam-close-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    .exam-toolbar {
+      background-color: #f5f5f5;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .exam-toolbar button {
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .exam-toolbar button:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .exam-patient-nav {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+    
+    .exam-patient-nav label {
+      margin-right: 10px;
+      color: #2196F3;
+    }
+    
+    .exam-patient-nav input {
+      flex-grow: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .nav-button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    
+    .basic-data-header {
+      background-color: #2196F3;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .form-group label {
+      width: 200px;
+      text-align: right;
+      margin-right: 10px;
+      color: #2196F3;
+    }
+    
+    .form-group input, .form-group select {
+      flex-grow: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    
+    .form-group .small-input {
+      width: 60px;
+      flex-grow: 0;
+    }
+    
+    .form-group .medium-input {
+      width: 120px;
+      flex-grow: 0;
+    }
+    
+    .form-group .date-input {
+      width: 100px;
+      flex-grow: 0;
+    }
+    
+    .main-content-wrapper {
+      display: flex;
+      background-color: #f5f5f5;
+      height: calc(100vh - 120px);
+    }
+    
+    /* Estilo para conteúdo específico da página */
+    .content-area {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    
+    /* Estilos específicos para Logoaudiometria */
+    .logoaudio-container {
+      background-color: #f5f5f5;
+      padding: 15px;
+    }
+    
+    .logoaudio-header {
+      background-color: #2196F3;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .logoaudio-section {
+      margin-bottom: 20px;
+    }
+    
+    .logoaudio-section-title {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    .logoaudio-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      background-color: #fff;
+    }
+    
+    .logoaudio-table th,
+    .logoaudio-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    
+    .logoaudio-table th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    
+    .table-row-header {
+      width: 120px;
+      text-align: left;
+    }
+    
+    .orelha-direita {
+      color: #ff0000;
+    }
+    
+    .orelha-esquerda {
+      color: #0000ff;
+    }
+    
+    .small-input {
+      width: 60px;
+    }
+    
+    .field-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .field-label {
+      width: 150px;
+      text-align: right;
+      padding-right: 10px;
+      color: #2196F3;
+    }
+    
+    .field-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <div class="app-container">
+    <!-- Container para o menu que será carregado dinamicamente -->
+    <div id="menu-container"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-content">
+      <main class="main-content">
+        <div class="mdc-top-app-bar--fixed-adjust">
+          <!-- Breadcrumbs -->
+          <div class="breadcrumbs">
+            <a href="../../index.html">Início</a>
+            <span>></span>
+            <a href="#">Exames</a>
+            <span>></span>
+            <span>Logoaudiometria</span>
+          </div>
+          
+          <div class="exam-container">
+            <!-- Cabeçalho do exame -->
+            <div class="exam-header">
+              <h1>Exames - Logoaudiometria</h1>
+              <button class="exam-close-btn">X</button>
+            </div>
+            
+            <!-- Container para a barra de ferramentas que será carregada dinamicamente -->
+            <div id="menu-exame-top-container"></div>
+            
+            <!-- Navegação de paciente -->
+            <div class="exam-patient-nav">
+              <label for="paciente">Funcionário/Paciente:</label>
+              <input type="text" id="paciente" value="PACIENTE TESTE" style="width: 300px;" readonly>
+              
+              <div class="nav-buttons">
+                <button class="nav-button">&lt;&lt;</button>
+                <button class="nav-button">&lt;</button>
+                <button class="nav-button">&gt;</button>
+                <button class="nav-button">&gt;&gt;</button>
+              </div>
+              
+              <div style="margin-left: auto;">
+                <label for="data" style="margin-left: 20px;">Data:</label>
+                <input type="text" id="data" value="06/06/2023" class="date-input" readonly>
+              </div>
+            </div>
+            
+            <!-- Área principal com menu lateral e conteúdo -->
+            <div class="main-content-wrapper">
+              <!-- Menu lateral -->
+              <div id="menu-exame-container"></div>
+              
+              <!-- Conteúdo específico da página -->
+              <div class="content-area">
+                <!-- Conteúdo específico para Logoaudiometria -->
+                <div class="logoaudio-container">
+                  <div class="logoaudio-header">
+                    <h2>Logoaudiometria</h2>
+                  </div>
+                  
+                  <!-- Índice Percentual de Reconhecimento da Fala -->
+                  <div class="logoaudio-section">
+                    <div class="logoaudio-section-title">Indice Percentual de Reconhecimento da Fala:</div>
+                    
+                    <div style="display: flex; gap: 15px;">
+                      <!-- Tabela principal IPRF -->
+                      <table class="logoaudio-table" style="width: 75%">
+                        <thead>
+                          <tr>
+                            <th>IPRF</th>
+                            <th>Intensidade</th>
+                            <th>Monossilábicas reconhecidas</th>
+                            <th>Dissilábicas reconhecidas</th>
+                            <th>Trissilábicas reconhecidas</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="orelha-direita">Orelha Direita</td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                          <tr>
+                            <td class="orelha-esquerda">Orelha Esquerda</td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <!-- Tabela Média -->
+                      <table class="logoaudio-table" style="width: 20%">
+                        <thead>
+                          <tr>
+                            <th>Média</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="height: 40px;"><input type="text" class="small-input"></td>
+                          </tr>
+                          <tr>
+                            <td style="height: 40px;"><input type="text" class="small-input"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <!-- Limiar de Reconhecimento e Detecção -->
+                  <div style="display: flex; gap: 20px;">
+                    <!-- Limiar de Reconhecimento da Fala -->
+                    <div class="logoaudio-section" style="width: 48%">
+                      <div class="logoaudio-section-title">Limiar de Reconhecimento da Fala:</div>
+                      <table class="logoaudio-table">
+                        <thead>
+                          <tr>
+                            <th>LRF</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="orelha-direita">Orelha Direita</td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                          <tr>
+                            <td class="orelha-esquerda">Orelha Esquerda</td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <!-- Limiar de Detecção de Voz -->
+                    <div class="logoaudio-section" style="width: 48%">
+                      <div class="logoaudio-section-title">Limiar de Detecção de Voz:</div>
+                      <table class="logoaudio-table">
+                        <thead>
+                          <tr>
+                            <th>LDV</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="orelha-direita">Orelha Direita</td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                          <tr>
+                            <td class="orelha-esquerda">Orelha Esquerda</td>
+                            <td><input type="text" class="small-input"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <!-- Campos adicionais -->
+                  <div class="logoaudio-section">
+                    <div class="field-row">
+                      <div class="field-label">Tipo Mascaramento:</div>
+                      <input type="text" class="small-input">
+                    </div>
+                    
+                    <div class="field-group">
+                      <div class="field-row">
+                        <div class="field-label">Mascaramento OD:</div>
+                        <input type="checkbox">
+                      </div>
+                      
+                      <div class="field-row">
+                        <div class="field-label">Quantidade Mascarada OD:</div>
+                        <input type="text" class="small-input">
+                      </div>
+                      
+                      <div class="field-row">
+                        <div class="field-label">Palavras Monossílabas faladas:</div>
+                        <input type="text" class="small-input">
+                      </div>
+                      
+                      <div class="field-row">
+                        <div class="field-label">Palavras Trissílabas faladas:</div>
+                        <input type="text" class="small-input">
+                      </div>
+                    </div>
+                    
+                    <div class="field-group">
+                      <div class="field-row">
+                        <div class="field-label">Mascaramento OE:</div>
+                        <input type="checkbox">
+                      </div>
+                      
+                      <div class="field-row">
+                        <div class="field-label">Quantidade Mascarada OE:</div>
+                        <input type="text" class="small-input">
+                      </div>
+                      
+                      <div class="field-row">
+                        <div class="field-label">Palavras Dissílabas faladas:</div>
+                        <input type="text" class="small-input">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/imask@6.0.7/dist/imask.min.js"></script>
+  <script src="../../assets/js/main.js"></script>
+  
+  <!-- Scripts para carregar componentes modulares -->
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/menu-exame-loader.js"></script>
+  <script src="../../assets/js/menu-exame-top-loader.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Carrega o menu principal
+      loadMenu();
+      
+      // Carrega o menu lateral de exames
+      loadExameMenu();
+      
+      // Carrega a barra de ferramentas de exames
+      loadExameTopMenu();
+      
+      // Configurar máscaras para campos de data
+      const dataElement = document.getElementById('data');
+      if (dataElement) {
+        const dataMask = new IMask(dataElement, {
+          mask: '00/00/0000',
+          lazy: false
+        });
+      }
+      
+      // Scripts específicos da página podem ser adicionados aqui
+      // [SCRIPTS_ESPECIFICOS_PAGINA]
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* Estilos personalizados para o WinAudio */
+:root {
+  --primary-color: #2196F3;
+  --secondary-color: #03A9F4;
+  --accent-color: #FF5722;
+  --background-color: #F5F5F5;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --white: #FFFFFF;
+  --divider-color: #BDBDBD;
+  --success-color: #4CAF50;
+  --warning-color: #FFC107;
+  --error-color: #F44336;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Layout principal */
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
+}
+
+.main-content {
+  overflow: auto;
+  height: 100%;
+}
+
+/* Customização do drawer */
+.mdc-drawer {
+  border-right: none;
+  background-color: var(--white);
+  width: 256px;
+}
+
+.mdc-drawer__header {
+  padding: 16px;
+  border-bottom: 1px solid var(--divider-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mdc-drawer__title {
+  margin-bottom: 0;
+}
+
+.mdc-drawer__subtitle {
+  margin-top: 4px;
+  color: var(--text-secondary);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+}
+
+/* Customização da AppBar */
+.mdc-top-app-bar {
+  background-color: var(--primary-color);
+  position: fixed;
+}
+
+.mdc-top-app-bar__title {
+  font-weight: 400;
+}
+
+.app-logo {
+  height: 36px;
+  margin-right: 16px;
+}
+
+/* Cards */
+.dashboard-card {
+  margin: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 16px;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+/* Menu de navegação */
+.nav-menu .mdc-list-item {
+  height: 48px;
+  border-radius: 0 24px 24px 0;
+  margin: 8px 8px 8px 0;
+  padding-left: 16px;
+}
+
+.nav-menu .mdc-list-item--activated {
+  background-color: rgba(33, 150, 243, 0.12);
+  color: var(--primary-color);
+}
+
+.nav-menu .mdc-list-item__graphic {
+  color: var(--text-secondary);
+  margin-right: 16px;
+}
+
+.nav-menu .mdc-list-item--activated .mdc-list-item__graphic {
+  color: var(--primary-color);
+}
+
+/* Submenu */
+.submenu {
+  padding-left: 32px;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.submenu.open {
+  height: auto;
+}
+
+/* Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 16px;
+}
+
+.stat-card__title {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stat-card__value {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.stat-card__icon {
+  float: right;
+  background-color: rgba(33, 150, 243, 0.12);
+  color: var(--primary-color);
+  padding: 8px;
+  border-radius: 50%;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .mdc-drawer.mdc-drawer--dismissible {
+    display: none;
+  }
+  
+  .mdc-drawer.mdc-drawer--dismissible.mdc-drawer--open {
+    display: flex;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  padding: 8px 16px;
+  background-color: white;
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.breadcrumbs a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.breadcrumbs span {
+  color: var(--text-secondary);
+  margin: 0 8px;
+}
+
+/* Botões de ação */
+.fab-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.mdc-fab {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Footer */
+.app-footer {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  border-top: 1px solid var(--divider-color);
+  margin-top: auto;
+}

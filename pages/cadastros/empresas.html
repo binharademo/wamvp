@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Cadastro de Empresas</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  
+  <style>
+    /* Estilos específicos para a página de cadastro de empresas */
+    .form-section {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section-title {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--mdc-theme-primary, #1976d2);
+      margin-top: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-field-group {
+      flex: 1;
+      min-width: 0; /* Previne que campos encolham demais */
+    }
+    
+    .form-field-group.full-width {
+      min-width: 100%;
+    }
+    
+    .form-field-group.half-width {
+      min-width: calc(50% - 8px);
+    }
+    
+    .form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body class="mdc-typography">
+  <!-- Container para o menu que será carregado dinamicamente -->
+  <div id="menu-container"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="mdc-drawer-app-content">
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+          <a href="../../index.html">Início</a>
+          <span>></span>
+          <a href="#">Cadastros</a>
+          <span>></span>
+          <span>Empresas</span>
+        </div>
+
+        <!-- Barra de ações -->
+        <div class="action-bar">
+          <button class="mdc-button mdc-button--raised" id="btn-novo">
+            <i class="material-icons mdc-button__icon">add</i>
+            <span class="mdc-button__label">Nova Empresa</span>
+          </button>
+        </div>
+        
+        <div class="content-card" id="empresa-form">
+          <div class="card-header">
+            <h2>Dados da Empresa</h2>
+          </div>
+          <div class="card-content">
+        
+        <form id="form-empresa">
+          <!-- Seção: Identificação da Empresa -->
+          <section class="form-section">
+            <h3 class="form-section-title">Identificação da Empresa</h3>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="codigo" name="emp-codigo" readonly>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="codigo" class="mdc-floating-label">Código</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="date" class="mdc-text-field__input" id="data-fundacao" name="emp-data-fundacao">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="data-fundacao" class="mdc-floating-label">Data de Fundação</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group full-width">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="razao-social" name="emp-nome" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="razao-social" class="mdc-floating-label">Razão Social*</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group full-width">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="nome-fantasia" name="emp-nome-reduzido">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="nome-fantasia" class="mdc-floating-label">Nome Fantasia</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="cnpj" name="emp-cnpj" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="cnpj" class="mdc-floating-label">CNPJ*</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="inscricao-estadual" name="emp-ie">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="inscricao-estadual" class="mdc-floating-label">Inscrição Estadual</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="ramo-atividade" name="emp-ramo">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="ramo-atividade" class="mdc-floating-label">Ramo de Atividade</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="cnae" name="emp-cnae">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="cnae" class="mdc-floating-label">CNAE</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="gfip" name="emp-gfip">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="gfip" class="mdc-floating-label">GFIP</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-select mdc-select--outlined form-field" id="grau-risco-select">
+                  <div class="mdc-select__anchor">
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label">Grau de Risco</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <span class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5">
+                        <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd" points="7 10 12 15 17 10"></polygon>
+                        <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd" points="7 15 12 10 17 15"></polygon>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="">
+                        <span class="mdc-list-item__text">Selecione</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="1">
+                        <span class="mdc-list-item__text">1</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="2">
+                        <span class="mdc-list-item__text">2</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="3">
+                        <span class="mdc-list-item__text">3</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="4">
+                        <span class="mdc-list-item__text">4</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Seção: Endereço -->
+          <section class="form-section">
+            <h3 class="form-section-title">Endereço</h3>
+            
+            <div class="form-row">
+              <div class="form-field-group" style="flex: 0.3;">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="cep" name="emp-cep">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="cep" class="mdc-floating-label">CEP</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group" style="flex: 1.7;">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="endereco" name="emp-endereco">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="endereco" class="mdc-floating-label">Endereço</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="bairro" name="emp-bairro">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="bairro" class="mdc-floating-label">Bairro</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="cidade" name="emp-cidade">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="cidade" class="mdc-floating-label">Cidade</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group" style="flex: 0.3;">
+                <div class="mdc-select mdc-select--outlined form-field" id="uf-select">
+                  <div class="mdc-select__anchor">
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label">UF</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <span class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5">
+                        <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd" points="7 10 12 15 17 10"></polygon>
+                        <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd" points="7 15 12 10 17 15"></polygon>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="">
+                        <span class="mdc-list-item__text">-</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="AC">
+                        <span class="mdc-list-item__text">AC</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="AL">
+                        <span class="mdc-list-item__text">AL</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="AM">
+                        <span class="mdc-list-item__text">AM</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="AP">
+                        <span class="mdc-list-item__text">AP</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="BA">
+                        <span class="mdc-list-item__text">BA</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="CE">
+                        <span class="mdc-list-item__text">CE</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="DF">
+                        <span class="mdc-list-item__text">DF</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="ES">
+                        <span class="mdc-list-item__text">ES</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="GO">
+                        <span class="mdc-list-item__text">GO</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="MA">
+                        <span class="mdc-list-item__text">MA</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="MG">
+                        <span class="mdc-list-item__text">MG</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="MS">
+                        <span class="mdc-list-item__text">MS</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="MT">
+                        <span class="mdc-list-item__text">MT</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="PA">
+                        <span class="mdc-list-item__text">PA</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="PB">
+                        <span class="mdc-list-item__text">PB</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="PE">
+                        <span class="mdc-list-item__text">PE</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="PI">
+                        <span class="mdc-list-item__text">PI</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="PR">
+                        <span class="mdc-list-item__text">PR</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="RJ">
+                        <span class="mdc-list-item__text">RJ</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="RN">
+                        <span class="mdc-list-item__text">RN</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="RO">
+                        <span class="mdc-list-item__text">RO</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="RR">
+                        <span class="mdc-list-item__text">RR</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="RS">
+                        <span class="mdc-list-item__text">RS</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="SC">
+                        <span class="mdc-list-item__text">SC</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="SE">
+                        <span class="mdc-list-item__text">SE</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="SP">
+                        <span class="mdc-list-item__text">SP</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="TO">
+                        <span class="mdc-list-item__text">TO</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Seção: Contatos -->
+          <section class="form-section">
+            <h3 class="form-section-title">Contatos</h3>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="telefone" name="emp-telefone">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="telefone" class="mdc-floating-label">Telefone</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="fax" name="emp-fax">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="fax" class="mdc-floating-label">FAX</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="email" class="mdc-text-field__input" id="email" name="emp-email">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="email" class="mdc-floating-label">Email</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="contato" name="emp-contato">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="contato" class="mdc-floating-label">Nome do Contato</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field-group">
+                <div class="mdc-text-field mdc-text-field--outlined form-field">
+                  <input type="text" class="mdc-text-field__input" id="tel-contato" name="emp-tel-contato">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="tel-contato" class="mdc-floating-label">Telefone do Contato</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Seção: Informações Complementares -->
+          <section class="form-section">
+            <h3 class="form-section-title">Informações Complementares</h3>
+            
+            <div class="form-row">
+              <div class="form-field-group full-width">
+                <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea form-field">
+                  <textarea class="mdc-text-field__input" id="observacoes" name="emp-obs" rows="3"></textarea>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="observacoes" class="mdc-floating-label">Observações</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Botões de ação -->
+          <div class="form-actions" style="margin-top: 24px;">
+            <button type="button" class="mdc-button" id="btn-cancelar">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Cancelar</span>
+            </button>
+            <button type="button" class="mdc-button" id="btn-limpar">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Limpar</span>
+            </button>
+            <button type="submit" class="mdc-button mdc-button--raised" id="btn-salvar">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Salvar</span>
+            </button>
+          </div>
+        </form>
+        
+        <!-- Snackbar para mensagens -->
+        <div class="mdc-snackbar">
+          <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+            <div class="mdc-snackbar__label" aria-atomic="false"></div>
+            <div class="mdc-snackbar__actions" aria-atomic="true">
+              <button type="button" class="mdc-button mdc-snackbar__action">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">OK</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Snackbar para mensagens -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false"></div>
+      <div class="mdc-snackbar__actions" aria-atomic="true">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- IMask para máscaras de entrada -->
+  <script src="https://unpkg.com/imask"></script>
+  
+  <!-- Scripts personalizados -->
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/menu-loader.js"></script>
+  <script src="../../assets/js/empresas.js"></script>
+</body>
+</html>

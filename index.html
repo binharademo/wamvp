@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Sistema de Gerenciamento Audiométrico</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js para gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Estilos personalizados -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="mdc-typography">
+  <!-- Menu lateral (Drawer) -->
+  <aside class="mdc-drawer mdc-drawer--dismissible">
+    <div class="mdc-drawer__header">
+      <div class="user-info">
+        <div class="user-avatar">
+          <span class="material-icons">person</span>
+        </div>
+        <h3 class="mdc-drawer__title">Dr. Carlos Silva</h3>
+        <h6 class="mdc-drawer__subtitle">Fonoaudiólogo</h6>
+      </div>
+      <img src="assets/images/logo.png" alt="WinAudio Logo" style="max-width: 180px;">
+    </div>
+    
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list nav-menu">
+        <a class="mdc-list-item mdc-list-item--activated" href="index.html" aria-current="page">
+          <span class="material-icons mdc-list-item__graphic">dashboard</span>
+          <span class="mdc-list-item__text">Dashboard</span>
+        </a>
+        
+        <!-- Menu Cadastros -->
+        <a class="mdc-list-item has-submenu" href="#">
+          <span class="material-icons mdc-list-item__graphic">folder</span>
+          <span class="mdc-list-item__text">Cadastros</span>
+          <span class="material-icons menu-expand-icon">expand_more</span>
+        </a>
+        <div class="submenu">
+          <a class="mdc-list-item" href="pages/cadastros/pacientes.html">
+            <span class="material-icons mdc-list-item__graphic">person</span>
+            <span class="mdc-list-item__text">Pacientes</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/empresas.html">
+            <span class="material-icons mdc-list-item__graphic">business</span>
+            <span class="mdc-list-item__text">Empresas</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/profissionais.html">
+            <span class="material-icons mdc-list-item__graphic">medical_services</span>
+            <span class="mdc-list-item__text">Profissionais</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/setores.html">
+            <span class="material-icons mdc-list-item__graphic">domain</span>
+            <span class="mdc-list-item__text">Setores</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/patologias.html">
+            <span class="material-icons mdc-list-item__graphic">local_hospital</span>
+            <span class="mdc-list-item__text">Patologias</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/acompanhamentos.html">
+            <span class="material-icons mdc-list-item__graphic">event_note</span>
+            <span class="mdc-list-item__text">Acompanhamentos</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/cargos-funcoes.html">
+            <span class="material-icons mdc-list-item__graphic">work</span>
+            <span class="mdc-list-item__text">Cargos e Funções</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/convenios.html">
+            <span class="material-icons mdc-list-item__graphic">content_paste</span>
+            <span class="mdc-list-item__text">Convênios</span>
+          </a>
+          <a class="mdc-list-item" href="pages/cadastros/meatoscopias.html">
+            <span class="material-icons mdc-list-item__graphic">hearing</span>
+            <span class="mdc-list-item__text">Meatoscopias</span>
+          </a>
+        </div>
+        
+        <!-- Menu Exames -->
+        <a class="mdc-list-item has-submenu" href="#">
+          <span class="material-icons mdc-list-item__graphic">hearing</span>
+          <span class="mdc-list-item__text">Exames</span>
+          <span class="material-icons menu-expand-icon">expand_more</span>
+        </a>
+        <div class="submenu">
+          <a class="mdc-list-item" href="pages/exames/cadastro.html">
+            <span class="material-icons mdc-list-item__graphic">add_circle</span>
+            <span class="mdc-list-item__text">Novo</span>
+          </a>
+          <a class="mdc-list-item" href="pages/exames/consultar-exames.html">
+            <span class="material-icons mdc-list-item__graphic">search</span>
+            <span class="mdc-list-item__text">Consultar Exames</span>
+          </a>
+          <a class="mdc-list-item" href="pages/exames/agendar-exames.html">
+            <span class="material-icons mdc-list-item__graphic">event</span>
+            <span class="mdc-list-item__text">Agendar Exames</span>
+          </a>
+          <a class="mdc-list-item" href="pages/exames/historico-exames.html">
+            <span class="material-icons mdc-list-item__graphic">history</span>
+            <span class="mdc-list-item__text">Histórico de Exames</span>
+          </a>
+        </div>
+        
+        <!-- Menu Parâmetros -->
+        <a class="mdc-list-item has-submenu" href="#">
+          <span class="material-icons mdc-list-item__graphic">settings</span>
+          <span class="mdc-list-item__text">Parâmetros</span>
+          <span class="material-icons menu-expand-icon">expand_more</span>
+        </a>
+        <div class="submenu">
+          <a class="mdc-list-item" href="pages/parametros/usuarios.html">
+            <span class="material-icons mdc-list-item__graphic">people</span>
+            <span class="mdc-list-item__text">Identificação de Usuário</span>
+          </a>
+          <a class="mdc-list-item" href="pages/parametros/anamnese.html">
+            <span class="material-icons mdc-list-item__graphic">assignment</span>
+            <span class="mdc-list-item__text">Anamnese</span>
+          </a>
+          <a class="mdc-list-item" href="pages/parametros/audiometro.html">
+            <span class="material-icons mdc-list-item__graphic">hearing</span>
+            <span class="mdc-list-item__text">Audiômetro</span>
+          </a>
+          <a class="mdc-list-item" href="pages/parametros/imitanciometro.html">
+            <span class="material-icons mdc-list-item__graphic">settings_input_component</span>
+            <span class="mdc-list-item__text">Imitanciômetro</span>
+          </a>
+          <a class="mdc-list-item" href="pages/parametros/relatorios.html">
+            <span class="material-icons mdc-list-item__graphic">description</span>
+            <span class="mdc-list-item__text">Cabeçalho de Relatórios</span>
+          </a>
+          <a class="mdc-list-item" href="pages/parametros/permissoes.html">
+            <span class="material-icons mdc-list-item__graphic">security</span>
+            <span class="mdc-list-item__text">Permissões de Acesso</span>
+          </a>
+        </div>
+        
+        <!-- Menu Relatórios -->
+        <a class="mdc-list-item has-submenu" href="#">
+          <span class="material-icons mdc-list-item__graphic">bar_chart</span>
+          <span class="mdc-list-item__text">Relatórios</span>
+          <span class="material-icons menu-expand-icon">expand_more</span>
+        </a>
+        <div class="submenu">
+          <a class="mdc-list-item" href="pages/relatorios/pacientes.html">
+            <span class="material-icons mdc-list-item__graphic">person</span>
+            <span class="mdc-list-item__text">Relatórios de Pacientes</span>
+          </a>
+          <a class="mdc-list-item" href="pages/relatorios/exames.html">
+            <span class="material-icons mdc-list-item__graphic">content_paste</span>
+            <span class="mdc-list-item__text">Relatórios de Exames</span>
+          </a>
+          <a class="mdc-list-item" href="pages/relatorios/estatisticos.html">
+            <span class="material-icons mdc-list-item__graphic">pie_chart</span>
+            <span class="mdc-list-item__text">Relatórios Estatísticos</span>
+          </a>
+          <a class="mdc-list-item" href="pages/relatorios/empresas.html">
+            <span class="material-icons mdc-list-item__graphic">business</span>
+            <span class="mdc-list-item__text">Relatórios por Empresa</span>
+          </a>
+          <a class="mdc-list-item" href="pages/relatorios/profissionais.html">
+            <span class="material-icons mdc-list-item__graphic">medical_services</span>
+            <span class="mdc-list-item__text">Relatórios por Profissional</span>
+          </a>
+        </div>
+        
+        <hr class="mdc-list-divider">
+        
+        <a class="mdc-list-item" href="#">
+          <span class="material-icons mdc-list-item__graphic">help</span>
+          <span class="mdc-list-item__text">Ajuda</span>
+        </a>
+        
+        <a class="mdc-list-item" href="#">
+          <span class="material-icons mdc-list-item__graphic">logout</span>
+          <span class="mdc-list-item__text">Sair</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <div class="mdc-drawer-app-content">
+    <!-- Barra superior -->
+    <header class="mdc-top-app-bar app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+          <span class="mdc-top-app-bar__title">WinAudio</span>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+          <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Notificações">notifications</button>
+          <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Ajuda">help</button>
+          <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Perfil">account_circle</button>
+        </section>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+          <a href="index.html">Início</a>
+          <span>></span>
+          <span>Dashboard</span>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard-grid">
+          <!-- Card de estatísticas: Total de pacientes -->
+          <div class="stat-card">
+            <span class="material-icons stat-card__icon">people</span>
+            <div class="stat-card__title">Total de Pacientes</div>
+            <div class="stat-card__value" id="pacientes-total">0</div>
+          </div>
+
+          <!-- Card de estatísticas: Exames no mês -->
+          <div class="stat-card">
+            <span class="material-icons stat-card__icon">calendar_month</span>
+            <div class="stat-card__title">Exames no Mês</div>
+            <div class="stat-card__value" id="exames-mes">0</div>
+          </div>
+
+          <!-- Card de estatísticas: Exames hoje -->
+          <div class="stat-card">
+            <span class="material-icons stat-card__icon">today</span>
+            <div class="stat-card__title">Exames Hoje</div>
+            <div class="stat-card__value" id="exames-hoje">0</div>
+          </div>
+
+          <!-- Card de estatísticas: Exames pendentes -->
+          <div class="stat-card">
+            <span class="material-icons stat-card__icon">pending</span>
+            <div class="stat-card__title">Exames Pendentes</div>
+            <div class="stat-card__value" id="exames-pendentes">0</div>
+          </div>
+
+          <!-- Gráfico de exames -->
+          <div class="dashboard-card" style="grid-column: span 2;">
+            <div class="card-header">
+              <h2>Exames Realizados</h2>
+            </div>
+            <div class="card-content" style="height: 300px;">
+              <canvas id="exames-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Próximos agendamentos -->
+          <div class="dashboard-card" style="grid-column: span 2;">
+            <div class="card-header">
+              <h2>Próximos Agendamentos</h2>
+            </div>
+            <div class="card-content">
+              <table class="mdc-data-table__table" style="width:100%">
+                <thead>
+                  <tr class="mdc-data-table__header-row">
+                    <th class="mdc-data-table__header-cell">Horário</th>
+                    <th class="mdc-data-table__header-cell">Paciente</th>
+                    <th class="mdc-data-table__header-cell">Tipo de Exame</th>
+                    <th class="mdc-data-table__header-cell">Profissional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="mdc-data-table__row">
+                    <td class="mdc-data-table__cell">08:30</td>
+                    <td class="mdc-data-table__cell">Maria Silva</td>
+                    <td class="mdc-data-table__cell">Audiometria Tonal</td>
+                    <td class="mdc-data-table__cell">Dr. Carlos</td>
+                  </tr>
+                  <tr class="mdc-data-table__row">
+                    <td class="mdc-data-table__cell">09:15</td>
+                    <td class="mdc-data-table__cell">João Pereira</td>
+                    <td class="mdc-data-table__cell">Imitanciometria</td>
+                    <td class="mdc-data-table__cell">Dra. Ana</td>
+                  </tr>
+                  <tr class="mdc-data-table__row">
+                    <td class="mdc-data-table__cell">10:00</td>
+                    <td class="mdc-data-table__cell">Pedro Santos</td>
+                    <td class="mdc-data-table__cell">Audiometria Vocal</td>
+                    <td class="mdc-data-table__cell">Dr. Carlos</td>
+                  </tr>
+                  <tr class="mdc-data-table__row">
+                    <td class="mdc-data-table__cell">11:30</td>
+                    <td class="mdc-data-table__cell">Ana Oliveira</td>
+                    <td class="mdc-data-table__cell">Audiometria Completa</td>
+                    <td class="mdc-data-table__cell">Dra. Ana</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão de ação flutuante -->
+        <div class="fab-container">
+          <button class="mdc-fab" aria-label="Novo Exame">
+            <div class="mdc-fab__ripple"></div>
+            <span class="mdc-fab__icon material-icons">add</span>
+          </button>
+        </div>
+
+        <!-- Rodapé -->
+        <footer class="app-footer">
+          <p>WinAudio - Sistema de Gerenciamento Audiométrico 2025</p>
+          <p>Versão 2.0</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- Snackbar para notificações -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false"></div>
+      <div class="mdc-snackbar__actions" aria-atomic="true">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

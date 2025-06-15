@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinAudio - Login</title>
+  
+  <!-- Material Design Web Components -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f5f5f5;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 2rem;
+    }
+    
+    .login-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .login-logo {
+      width: 180px;
+      margin-bottom: 2rem;
+    }
+    
+    .login-title {
+      color: var(--mdc-theme-primary);
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .login-field {
+      width: 100%;
+    }
+    
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5rem;
+    }
+    
+    .login-button {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 1rem;
+    }
+    
+    .login-footer {
+      margin-top: 1.5rem;
+      color: #757575;
+      font-size: 0.85rem;
+    }
+    
+    .login-help {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .login-help a {
+      color: var(--mdc-theme-primary);
+      text-decoration: none;
+    }
+    
+    .login-version {
+      position: absolute;
+      bottom: 1rem;
+      color: #9e9e9e;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Logo -->
+      <img src="../assets/images/logo.png" alt="WinAudio Logo" class="login-logo">
+      
+      <h1 class="login-title">Sistema de Gerenciamento Audiométrico</h1>
+      
+      <!-- Formulário de Login -->
+      <form class="login-form" id="login-form">
+        <!-- Campo de usuário -->
+        <div class="mdc-text-field mdc-text-field--outlined login-field" data-mdc-auto-init="MDCTextField">
+          <input type="text" id="username" class="mdc-text-field__input" required>
+          <div class="mdc-notched-outline">
+            <div class="mdc-notched-outline__leading"></div>
+            <div class="mdc-notched-outline__notch">
+              <label for="username" class="mdc-floating-label">Usuário</label>
+            </div>
+            <div class="mdc-notched-outline__trailing"></div>
+          </div>
+          <i class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing">person</i>
+        </div>
+        
+        <!-- Campo de senha -->
+        <div class="mdc-text-field mdc-text-field--outlined login-field" data-mdc-auto-init="MDCTextField">
+          <input type="password" id="password" class="mdc-text-field__input" required>
+          <div class="mdc-notched-outline">
+            <div class="mdc-notched-outline__leading"></div>
+            <div class="mdc-notched-outline__notch">
+              <label for="password" class="mdc-floating-label">Senha</label>
+            </div>
+            <div class="mdc-notched-outline__trailing"></div>
+          </div>
+          <i class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing" id="password-toggle">visibility_off</i>
+        </div>
+        
+        <!-- Lembrar senha -->
+        <div class="mdc-form-field">
+          <div class="mdc-checkbox">
+            <input type="checkbox" class="mdc-checkbox__native-control" id="remember-me"/>
+            <div class="mdc-checkbox__background">
+              <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+              </svg>
+              <div class="mdc-checkbox__mixedmark"></div>
+            </div>
+            <div class="mdc-checkbox__ripple"></div>
+          </div>
+          <label for="remember-me">Lembrar minha senha</label>
+        </div>
+        
+        <!-- Botões de ação -->
+        <div class="login-actions">
+          <button type="submit" class="mdc-button mdc-button--raised login-button">
+            <span class="mdc-button__label">Entrar</span>
+          </button>
+        </div>
+      </form>
+      
+      <!-- Links de ajuda -->
+      <div class="login-help">
+        <a href="#" id="forgot-password">Esqueci minha senha</a>
+      </div>
+      
+      <!-- Rodapé -->
+      <div class="login-footer">
+        <p>© 2025 WinAudio - Todos os direitos reservados</p>
+      </div>
+    </div>
+    
+    <!-- Versão -->
+    <div class="login-version">
+      Versão 2.0
+    </div>
+  </div>
+  
+  <!-- Snackbar para notificações -->
+  <div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false"></div>
+      <div class="mdc-snackbar__actions" aria-atomic="true">
+        <button type="button" class="mdc-button mdc-snackbar__action">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar componentes MDC
+      mdc.autoInit();
+      
+      // Inicializar Snackbar
+      const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
+      
+      // Inicializar Checkbox
+      const checkbox = new mdc.checkbox.MDCCheckbox(document.querySelector('.mdc-checkbox'));
+      const formField = new mdc.formField.MDCFormField(document.querySelector('.mdc-form-field'));
+      formField.input = checkbox;
+      
+      // Alternar visibilidade da senha
+      const passwordToggle = document.getElementById('password-toggle');
+      const passwordField = document.getElementById('password');
+      
+      passwordToggle.addEventListener('click', function() {
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          passwordToggle.textContent = 'visibility';
+        } else {
+          passwordField.type = 'password';
+          passwordToggle.textContent = 'visibility_off';
+        }
+      });
+      
+      // Manipular envio do formulário
+      document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Simulação de login - em um ambiente real, isso seria uma chamada de API
+        if (username && password) {
+          // Redirecionar para a página principal após login bem-sucedido
+          window.location.href = '../index.html';
+        } else {
+          // Mostrar mensagem de erro
+          snackbar.labelText = 'Por favor, preencha todos os campos.';
+          snackbar.open();
+        }
+      });
+      
+      // Manipular clique em "Esqueci minha senha"
+      document.getElementById('forgot-password').addEventListener('click', function(e) {
+        e.preventDefault();
+        snackbar.labelText = 'Função de recuperação de senha não implementada neste mockup.';
+        snackbar.open();
+      });
+    });
+  </script>
+</body>
+</html>
